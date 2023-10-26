@@ -1,5 +1,6 @@
 import InputText from "../components/InputText";
 import AuthButton from "../components/AuthButton";
+import { Link } from "react-router-dom";
 
 const Register = () => {
     return (
@@ -31,7 +32,7 @@ const Register = () => {
 
                         <div className="text-gray-400">
                             <span>Already have an account?</span>
-                            <a href="#" className="hover:text-indigo-500"> Login</a>
+                            <Link to="/login" className="hover:text-indigo-500"> Login</Link>
                         </div>
                     </form>
                 </div>
