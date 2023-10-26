@@ -18,17 +18,15 @@ export default {
     },
     extend: {
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
+        firacode: ['Fira+Code', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        'primary': "#25434d",
-        "aqua": "#a7e8e0",
-        "dark-gray": "#333333",
-        "dark-teal": "#25434d",
-        "white-400": "rgba(255, 255, 255, 0.80)",
-        "background-aqua": "#e9f3f5",
-        "light-gray": "#7D7987",
+        'primary': "#161616",
+        "secondary": "#36B6EF",
+        "third": "#1e293b",
+        "light-blue": "#334155",
+        "light-white": "#92A1B6",
       },
       screens: {
         "wide": "1440px"
