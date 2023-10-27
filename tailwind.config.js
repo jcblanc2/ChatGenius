@@ -22,11 +22,11 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        'primary': "#161616",
+        'primary': "#0F172A",
         "secondary": "#36B6EF",
-        "third": "#1e293b",
-        "light-blue": "#334155",
-        "light-white": "#92A1B6",
+        "secondary-active": "#38BDF8",
+        "third": "#334155",
+        "third-active": "#1E293B",
       },
       screens: {
         "wide": "1440px"

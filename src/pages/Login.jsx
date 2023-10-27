@@ -12,9 +12,9 @@ const Login = () => {
                     </h1>
 
                     <div className="py-6 space-x-4">
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg border-2 border-white cursor-pointer">f</span>
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg border-2 border-white cursor-pointer">G+</span>
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg border-2 border-white cursor-pointer">in</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg cursor-pointer bg-secondary">f</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">G+</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">in</span>
                     </div>
 
                     <p className="text-gray-100">
@@ -29,9 +29,9 @@ const Login = () => {
                             <AuthButton label='sign in' />
                         </div>
 
-                        <div className="text-gray-400">
+                        <div className="text-white">
                             <span>Don't have an account?</span>
-                            <Link to='/register' className="hover:text-indigo-500"> Register</Link>
+                            <Link to='/register' className="hover:text-secondary"> Register</Link>
                         </div>
                     </form>
                 </div>
