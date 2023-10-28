@@ -1,6 +1,6 @@
-const AuthButton = ({ label }) => {
+const AuthButton = ({ label, handleSubmit }) => {
     return (
-        <button className="uppercase block w-full p-4 text-lg rounded-full bg-secondary hover:bg-secondary-active focus:outline-none">{label}</button>
+        <button type="submit" className="uppercase block w-full p-4 text-lg rounded-full bg-secondary hover:bg-secondary-active focus:outline-none" onClick={handleSubmit}>{label}</button>
     )
 }
 
