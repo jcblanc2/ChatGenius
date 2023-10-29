@@ -1,18 +1,20 @@
 import InputText from "../components/InputText";
 import AuthButton from "../components/AuthButton";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../firebase";
 import { useState } from "react";
 import Alert from "../components/Alert";
+import { connectWithProvider } from "../services/auth";
+import { auth, googleProvider, facebookProvider } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
     const navigate = useNavigate();
+
     const [alertMessage, setAlertMessage] = useState('');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
 
-    const onLogin = async (e) => {
+    const onLoginWithEmailAndPassword = async (e) => {
         e.preventDefault();
 
         await signInWithEmailAndPassword(auth, email, password)
@@ -30,23 +32,14 @@ const Login = () => {
             });
     }
 
-    const signInGoogle = async () => {
-        await signInWithPopup(auth, provider)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                localStorage.setItem('uid', JSON.stringify(user.uid));
-                navigate("/chat");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                console.log(errorCode);
-                if (errorCode === 'auth/email-already-in-use') {
-                    setAlertMessage("Email already exists.");
-                }
-                else if (errorCode === 'auth/weak-password') {
-                    setAlertMessage("Password is weak.");
-                }
-            });
+    const connectWithGoogle = async () => {
+        await connectWithProvider(googleProvider);
+        navigate("/chat");
+    }
+
+    const connectWithFacebook = async () => {
+        await connectWithProvider(facebookProvider);
+        navigate("/chat");
     }
 
     return (
@@ -58,8 +51,8 @@ const Login = () => {
                     </h1>
 
                     <div className="py-6 space-x-4">
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg cursor-pointer bg-secondary">f</span>
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={signInGoogle}>G+</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg cursor-pointer bg-secondary" onClick={connectWithFacebook}>f</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithGoogle}>G+</span>
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">in</span>
                     </div>
 
@@ -72,7 +65,7 @@ const Login = () => {
                         <InputText placeholder='Password' handleChange={(e) => setPassword(e.target.value)} />
 
                         <div className="px-4 pb-2 pt-4">
-                            <AuthButton label='sign in' handleSubmit={onLogin} />
+                            <AuthButton label='sign in' handleSubmit={onLoginWithEmailAndPassword} />
                         </div>
 
                         <div className="text-white">

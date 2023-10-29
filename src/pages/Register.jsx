@@ -1,10 +1,11 @@
 import InputText from "../components/InputText";
 import AuthButton from "../components/AuthButton";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider, facebookProvider } from "../../firebase";
 import { useState } from "react";
 import Alert from "../components/Alert";
+import { connectWithProvider } from "../services/auth";
 
 
 const Register = () => {
@@ -37,22 +38,13 @@ const Register = () => {
     }
 
     const signInGoogle = async () => {
-        await signInWithPopup(auth, provider)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            localStorage.setItem('uid', JSON.stringify(user.uid));
-            navigate("/chat");
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            console.log(errorCode);
-            if (errorCode === 'auth/email-already-in-use') {
-                setAlertMessage("Email already exists.");
-            }
-            else if (errorCode === 'auth/weak-password') {
-                setAlertMessage("Password is weak.");
-            }
-        });
+        await connectWithProvider(googleProvider);
+        navigate("/chat");
+    }
+
+    const connectWithFacebook = async () => {
+        await connectWithProvider(facebookProvider);
+        navigate("/chat");
     }
 
     return (
@@ -64,7 +56,7 @@ const Register = () => {
                     </h1>
 
                     <div className="py-6 space-x-4">
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">f</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithFacebook}>f</span>
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={signInGoogle}>G+</span>
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">in</span>
                     </div>
