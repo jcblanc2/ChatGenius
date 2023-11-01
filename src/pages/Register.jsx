@@ -37,14 +37,38 @@ const Register = () => {
             });
     }
 
-    const signInGoogle = async () => {
-        await connectWithProvider(googleProvider);
-        navigate("/chat");
+    const connectWithGoogle = async () => {
+        try {
+            const user = await connectWithProvider(googleProvider);
+            localStorage.setItem('uid', JSON.stringify(user.uid));
+            navigate("/chat");
+        } catch (error) {
+            const errorCode = error.code;
+
+            if (errorCode === 'auth/email-already-in-use') {
+                setAlertMessage("Email already exists.");
+            }
+            else if (errorCode === 'auth/weak-password') {
+                setAlertMessage("Password is weak.");
+            }
+        }
     }
 
     const connectWithFacebook = async () => {
-        await connectWithProvider(facebookProvider);
-        navigate("/chat");
+        try {
+            const user = await connectWithProvider(facebookProvider);
+            localStorage.setItem('uid', JSON.stringify(user.uid));
+            navigate("/chat");
+        } catch (error) {
+            const errorCode = error.code;
+
+            if (errorCode === 'auth/email-already-in-use') {
+                setAlertMessage("Email already exists.");
+            }
+            else if (errorCode === 'auth/weak-password') {
+                setAlertMessage("Password is weak.");
+            }
+        }
     }
 
     return (
@@ -57,7 +81,7 @@ const Register = () => {
 
                     <div className="py-6 space-x-4">
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithFacebook}>f</span>
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={signInGoogle}>G+</span>
+                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithGoogle}>G+</span>
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">in</span>
                     </div>
 

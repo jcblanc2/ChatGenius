@@ -1,7 +1,7 @@
 import InputText from "../components/InputText";
 import AuthButton from "../components/AuthButton";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Alert from "../components/Alert";
 import { connectWithProvider } from "../services/auth";
 import { auth, googleProvider, facebookProvider } from "../../firebase";
@@ -13,6 +13,12 @@ const Login = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        if(localStorage.getItem('uid')){
+            navigate("/chat");
+        }
+    }, []);
 
     const onLoginWithEmailAndPassword = async (e) => {
         e.preventDefault();
@@ -33,14 +39,39 @@ const Login = () => {
     }
 
     const connectWithGoogle = async () => {
-        await connectWithProvider(googleProvider);
-        navigate("/chat");
+        try {
+            const user = await connectWithProvider(googleProvider);
+            localStorage.setItem('uid', JSON.stringify(user.uid));
+            navigate("/chat");
+        } catch (error) {
+            const errorCode = error.code;
+
+            if (errorCode === 'auth/email-already-in-use') {
+                setAlertMessage("Email already exists.");
+            }
+            else if (errorCode === 'auth/weak-password') {
+                setAlertMessage("Password is weak.");
+            }
+        }
     }
 
     const connectWithFacebook = async () => {
-        await connectWithProvider(facebookProvider);
-        navigate("/chat");
+        try {
+            const user = await connectWithProvider(facebookProvider);
+            localStorage.setItem('uid', JSON.stringify(user.uid));
+            navigate("/chat");
+        } catch (error) {
+            const errorCode = error.code;
+
+            if (errorCode === 'auth/email-already-in-use') {
+                setAlertMessage("Email already exists.");
+            }
+            else if (errorCode === 'auth/weak-password') {
+                setAlertMessage("Password is weak.");
+            }
+        }
     }
+
 
     return (
         <section className="min-h-screen flex items-center justify-center text-white bg-primary">
