@@ -1,23 +1,28 @@
-import { apiKeys } from "../../config";
 
+const express = require('express');
+const axios = require('axios');
 
-import Replicate from "replicate";
+const app = express();
+const PORT = 3000;
 
-export async function sendMessageToTheModel() {
+app.use(express.json());
 
-    const replicate = new Replicate({
-        auth: apiKeys.REPLICATE_API_TOKEN,
-    });
-    console.log(2222222);
-
-    const output = await replicate.run(
-        "meta/llama-2-70b-chat:2c1608e18606fad2812020dc541930f2d0495ce32eee50074220b87300bc16e1",
-        {
-            input: {
-                prompt:
-                    "Write a poem about open source machine learning in the style of Mary Oliver.",
+app.post('/sendRequest', async (req, res) => {
+    const apiUrl = 'https://api.replicate.com/v1/predictions';
+    
+    try {
+        const response = await axios.post(apiUrl, req.body, {
+            headers: {
+                'Authorization': req.headers.authorization,
             },
-        }
-    );
-    console.log(output);
-}
+        });
+
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ error: error.message });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
