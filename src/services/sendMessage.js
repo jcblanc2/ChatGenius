@@ -3,7 +3,7 @@ import { apiKeys } from "../../config";
 import axios from 'axios';
 
 export async function sendMessageToTheModel() {
-    const apiUrl = '/api'; // Vercel automatically routes this to the serverless function
+    const apiUrl = '/services/api'; // Vercel automatically routes this to the serverless function
 
     const requestData = {
         input: {
