@@ -14,20 +14,20 @@ const Chat = () => {
         event.preventDefault();
 
         if (message !== "") {
-            const newMessage = {
+            const userMessage = {
                 "role": "user",
                 "content": message
-            };
+            }
 
-            const newMessages = [...messages, newMessage];
-            setMessages(newMessages);
+            setMessages(prevMessages => [...prevMessages, userMessage]);
 
-            await sendMessageToTheModel(newMessages);
+            const response = await sendMessageToTheModel(message);
 
-            setMessages([...messages, {
+            const assistantMessage = {
                 "role": "assistant",
-                "content": data.choices[0].message.content
-            }]);
+                "content": response.message
+            }
+            setMessages(prevMessages => [...prevMessages, assistantMessage]);
 
             setMessage('');
         }
@@ -55,11 +55,21 @@ const Chat = () => {
                     🤖 Chat with ChatGenius
                 </h4>
 
-                <div onClick={handleLogout} className="absolute right-5 cursor-pointer">
-                    <svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" />
-                    </svg>
-                </div>
+                {
+                    localStorage.getItem('uid') ?
+                        <div onClick={handleLogout} className="absolute right-5 cursor-pointer">
+                            <svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" />
+                            </svg>
+                        </div>
+                        :
+                        <button
+                            type="button"
+                            className="absolute right-5 text-center bg-third px-4 py-2 rounded-full hover:bg-primary transition duration-400"
+                            onClick={() => navigate('/register')}>
+                            Sign In
+                        </button>
+                }
             </div>
 
             <div className="mt-16 max-w-2xl mx-auto pb-40">

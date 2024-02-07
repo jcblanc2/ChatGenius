@@ -1,7 +1,7 @@
 import InputText from "../components/InputText";
 import AuthButton from "../components/AuthButton";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Alert from "../components/Alert";
 import { connectWithProvider } from "../services/auth";
 import { auth, googleProvider, facebookProvider } from "../../firebase";
@@ -13,12 +13,6 @@ const Login = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
-
-    useEffect(() => {
-        if(localStorage.getItem('uid')){
-            navigate("/chat");
-        }
-    }, []);
 
     const onLoginWithEmailAndPassword = async (e) => {
         e.preventDefault();

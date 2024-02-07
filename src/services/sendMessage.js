@@ -1,25 +1,24 @@
 import { apiKeys } from "../../config";
+import Replicate from "replicate";
 
-import axios from 'axios';
+const replicate = new Replicate({
+    auth: apiKeys.REPLICATE_API_TOKEN,
+});
 
-export async function sendMessageToTheModel() {
-    const apiUrl = '/services/api'; // Vercel automatically routes this to the serverless function
-
-    const requestData = {
-        input: {
-            prompt: "Write a poem about open source machine learning in the style of Mary Oliver.",
-        },
-    };
-
+export async function sendMessageToTheModel(newMessage) {
     try {
-        const response = await axios.post(apiUrl, requestData, {
-            headers: {
-                Authorization: `Bearer ${apiKeys.REPLICATE_API_TOKEN}`,
-            },
-        });
-
-        console.log(response.data);
+        const response = await fetch('http://localhost:3000/api/send-message',
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: newMessage })
+            }
+        );
+        const responseData = await response.json();
+        return responseData;
     } catch (error) {
-        console.error('Error sending request to Replicate:', error.message);
+        console.error('Error sending request to OpenAI:', error.message);
     }
 }
