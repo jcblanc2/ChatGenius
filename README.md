@@ -9,4 +9,4 @@ ChatGenius is a web application that harnesses the power of Large Language Model
 
 ## Demo
 
-<img src="app.gif" width=200><br>
+<img src="app.png" width=800><br>
