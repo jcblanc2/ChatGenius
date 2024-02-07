@@ -10,9 +10,7 @@ const Chat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
-    const handleSend = async (event) => {
-        event.preventDefault();
-
+    const handleSend = async () => {
         if (message !== "") {
             const userMessage = {
                 "role": "user",
@@ -33,10 +31,15 @@ const Chat = () => {
         }
     };
 
+    const handleSendMessage = (event) => {
+            event.preventDefault();
+            handleSend();
+    }
+
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
-            handleSend(event);
+            handleSend();
         }
     }
 
@@ -82,9 +85,12 @@ const Chat = () => {
                 <div className="container max-w-2xl mx-auto p-5 pb-8">
                     <form className="w-full flex justify-center items-center">
                         <div className="flex w-full">
-
-                            <textarea type="text" placeholder="Send a message" className="flex-grow block w-full rounded-l-md border-0 py-3 pl-2 pr-1 text-white bg-third placeholder:text-gray-400  focus:outline-none sm:leading-6 resize-none overflow-hidden font-inter" spellCheck="false" onChange={(e) => setMessage(e.target.value)} onKeyDown={handleKeyDown}></textarea>
-                            <button className="w-7 rounded-r-md bg-third" onClick={handleSend}>
+                            <textarea type="text" placeholder="Send a message" className="flex-grow block w-full rounded-l-md border-0 py-3 pl-2 pr-1 text-white bg-third placeholder:text-gray-400  focus:outline-none sm:leading-6 resize-none overflow-hidden font-inter" spellCheck="false" 
+                            onChange={(e) => setMessage(e.target.value)} 
+                            onKeyDown={handleKeyDown}
+                            value={message}>
+                            </textarea>
+                            <button className="w-7 rounded-r-md bg-third" onClick={handleSendMessage}>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" className="text-gray-400 hover:text-secondary mr-2"><path d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z" fill="currentColor"></path>
                                     </svg>
