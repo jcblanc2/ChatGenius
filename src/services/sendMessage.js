@@ -1,6 +1,6 @@
 export async function sendMessageToTheModel(newMessage) {
     try {
-        const response = await fetch('http://localhost:3000/api/send-message',
+        const response = await fetch('https://chatgeniusapi.onrender.com/api/send-message',
             {
                 method: "POST",
                 headers: {
