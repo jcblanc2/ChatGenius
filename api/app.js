@@ -6,7 +6,7 @@ require('dotenv');
 const app = express();
 
 const replicate = new Replicate({
-    auth: "r8_1ncFgHKzkhljaK7bFOmbCXNoWzNc4g30mauvQ"
+    auth: process.env.REPLICATE_API_TOKEN
 });
 
 app.use(cors());
