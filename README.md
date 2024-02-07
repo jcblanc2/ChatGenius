@@ -6,3 +6,7 @@ ChatGenius is a web application that harnesses the power of Large Language Model
 
 - **Conversational AI:** ChatGenius leverages Large Language Models to generate human-like conversations.
 - **User-friendly Interface:** An intuitive and user-friendly web interface for easy interaction.
+
+## Demo
+
+<img src="app.gif" width=200><br>
