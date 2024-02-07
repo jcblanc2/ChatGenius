@@ -32,8 +32,8 @@ const Chat = () => {
     };
 
     const handleSendMessage = (event) => {
-            event.preventDefault();
-            handleSend();
+        event.preventDefault();
+        handleSend();
     }
 
     const handleKeyDown = (event) => {
@@ -55,15 +55,16 @@ const Chat = () => {
         <section className="min-h-screen flex flex-col justify-start text-white bg-primary">
             <div className="bg-third-active w-full py-5 fixed border-b-2 border-third flex justify-center items-center ">
                 <h4 className="font-inter font-light text-center">
-                    🤖 Chat with ChatGenius
+                    🤖 ChatGenius
                 </h4>
 
                 {
                     localStorage.getItem('uid') ?
-                        <div onClick={handleLogout} className="absolute right-5 cursor-pointer">
+                        <div data-ripple-light="true" data-tooltip-target="tooltip" onClick={handleLogout} className="has-tooltip absolute right-5 cursor-pointer">
                             <svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" />
                             </svg>
+                            <span class='tooltip p-1 rounded bg-third -ml-5'>Logout</span>
                         </div>
                         :
                         <button
@@ -85,10 +86,10 @@ const Chat = () => {
                 <div className="container max-w-2xl mx-auto p-5 pb-8">
                     <form className="w-full flex justify-center items-center">
                         <div className="flex w-full">
-                            <textarea type="text" placeholder="Send a message" className="flex-grow block w-full rounded-l-md border-0 py-3 pl-2 pr-1 text-white bg-third placeholder:text-gray-400  focus:outline-none sm:leading-6 resize-none overflow-hidden font-inter" spellCheck="false" 
-                            onChange={(e) => setMessage(e.target.value)} 
-                            onKeyDown={handleKeyDown}
-                            value={message}>
+                            <textarea type="text" placeholder="Send a message" className="flex-grow block w-full rounded-l-md border-0 py-3 pl-2 pr-1 text-white bg-third placeholder:text-gray-400  focus:outline-none sm:leading-6 resize-none overflow-hidden font-inter" spellCheck="false"
+                                onChange={(e) => setMessage(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                value={message}>
                             </textarea>
                             <button className="w-7 rounded-r-md bg-third" onClick={handleSendMessage}>
                                 <span>
