@@ -78,7 +78,6 @@ const Login = () => {
                     <div className="py-6 space-x-4">
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg cursor-pointer bg-secondary" onClick={connectWithFacebook}>f</span>
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithGoogle}>G+</span>
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">in</span>
                     </div>
 
                     <p className="text-gray-100">
