@@ -82,7 +82,6 @@ const Register = () => {
                     <div className="py-6 space-x-4">
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithFacebook}>f</span>
                         <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer" onClick={connectWithGoogle}>G+</span>
-                        <span className="w-10 h-10 items-center justify-center inline-flex rounded-full font-bold text-lg bg-secondary cursor-pointer">in</span>
                     </div>
 
                     <p className="text-gray-100">
@@ -100,7 +99,7 @@ const Register = () => {
 
                         <div className="text-white">
                             <span>Already have an account?</span>
-                            <Link to="/" className="hover:text-secondary"> Login</Link>
+                            <Link to="/login" className="hover:text-secondary"> Login</Link>
                         </div>
 
                         {alertMessage && <Alert message={alertMessage} />}
