@@ -12,7 +12,7 @@ const MessageCard = ({ message }) => {
         const displayTextGradually = async () => {
             for (let i = 0; i <= message.content.length; i++) {
                 setDisplayedContent(message.content.slice(0, i));
-                await new Promise(resolve => setTimeout(resolve, 30));
+                await new Promise(resolve => setTimeout(resolve, 15));
             }
         };
 
