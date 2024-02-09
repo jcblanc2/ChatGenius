@@ -16,7 +16,11 @@ const MessageCard = ({ message }) => {
             }
         };
 
-        displayTextGradually();
+        if(message.role === 'assistant'){
+            displayTextGradually();
+        }else{
+            setDisplayedContent(message.content)
+        }
     }, [message.content]);
 
     return (
