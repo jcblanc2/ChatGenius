@@ -9,6 +9,7 @@ const Chat = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleSend = async () => {
         if (message !== "") {
@@ -17,6 +18,7 @@ const Chat = () => {
                 "content": message
             }
 
+            setLoading(true)
             setMessages(prevMessages => [...prevMessages, userMessage]);
 
             const response = await sendMessageToTheModel(message);
@@ -25,6 +27,9 @@ const Chat = () => {
                 "role": "assistant",
                 "content": response.message
             }
+
+            setLoading(false)
+
             setMessages(prevMessages => [...prevMessages, assistantMessage]);
 
             setMessage('');
@@ -80,6 +85,13 @@ const Chat = () => {
                 {messages.map((item, index) => (
                     <MessageCard key={index} message={item} />
                 ))}
+
+                {loading &&
+                    <div className={'flex gap-x-4 rounded-md py-5 px-5 bg-third-active'}>
+                        <span className="text-xl sm:text-2xl">🤖</span>
+                        <p className="text-inter">Loading...</p>
+                    </div>
+                }
             </div>
 
             <footer className="fixed bottom-0 left-0 right-0 bg-third-active border-t-2 border-third">

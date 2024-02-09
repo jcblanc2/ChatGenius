@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
     "react-shimmer-effects": "^1.0.3",
-    "replicate": "^0.25.2"
+    "replicate": "^0.25.2",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
